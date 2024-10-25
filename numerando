@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dammi i Numeri Fortunati</title>
+    <style>
+        body {
+            font-family: "Times New Roman", Times, serif;
+            margin: 0;
+            padding: 0;
+            background-color: #4a57b2;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .container {
+            background-color: #5263BD;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 0px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+        }
+
+        h1 {
+            background-color: #9c27b0;
+            color: white;
+            padding: 15px;
+            border-radius: 0px;
+            margin-top: 0;
+            font-size: 24px;
+        }
+
+        .settings {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .settings label {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .settings input {
+            width: 100px;
+            padding: 8px;
+            font-size: 16px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+
+        .settings select {
+            padding: 10px;
+            width: 60%;
+            margin: 10px 0;
+            border-radius: 0px;
+            border: none;
+            font-size: 16px;
+        }
+
+        .pallino {
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            display: inline-block;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .pallino + .pallino {
+            margin-left: 10px;
+        }
+
+        .button {
+            padding: 12px 20px;
+            background-color: #9c27b0;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        .button:hover {
+            background-color: #8713d1;
+        }
+
+        .numeri-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .numero {
+            font-size: 20px;
+            color: white;
+            background-color: transparent;
+            padding: 10px;
+            margin: 5px 0;
+            text-align: center;
+        }
+
+        .ad-banner {
+            background-color: white; /* Cambiato il colore in bianco */
+            color: black;
+            padding: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        #cookiePopup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #000;
+            padding: 15px;
+            border: 1px solid #ccc;
+            display: none;
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        #cookiePopup button {
+            background-color: #9c27b0;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin: 10px;
+            font-size: 18px;
+        }
+
+        .ad-link {
+            color: blue;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .sidebar-ad {
+            background-color: white; /* Cambiato il colore in bianco */
+            color: black;
+            padding: 10px;
+            text-align: center;
+            margin: 10px 0;
+            border-radius: 10px;
+            width: 150px;
+        }
+
+        .sidebar-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            flex-wrap: wrap;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 10px;
+            right: 10px;
+        }
+
+        .side-ads {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            position: absolute;
+            top: 20px;
+            height: calc(100% - 40px);
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="cookiePopup">
+        <p>Questo sito utilizza i cookie per personalizzare contenuti e annunci, fornire funzionalità di social media e analizzare il nostro traffico. Condividiamo informazioni sul tuo utilizzo del sito con i nostri partner di social media, pubblicità e analisi. Puoi decidere se accettare o rifiutare i cookie utilizzando le opzioni qui sotto.</p>
+        <p>Per maggiori dettagli su come utilizziamo i cookie e le tue preferenze, consulta la nostra <a href="#" class="ad-link">Informativa sulla privacy e sui cookie</a>.</p>
+        <button onclick="accettaCookies()">Accetta tutti i cookie</button>
+        <button onclick="rifiutaCookies()">Rifiuta i cookie non essenziali</button>
+    </div>
+
+    <div class="ad-banner">
+        <strong>Incredibile Offerta!</strong> Prova il nostro nuovo servizio di streaming video. <span class="ad-link" onclick="alert('Navigando a: www.esempio.com')">Clicca qui per iniziare la prova gratuita!</span>
+    </div>
+
+    <div class="sidebar-container">
+        <div class="sidebar-ad">
+            <strong>Offerta Imperdibile!</strong> Scopri i nostri integratori naturali. <span class="ad-link" onclick="alert('Navigando a: www.esempio.com')">Clicca qui!</span>
+        </div>
+        <div class="sidebar-ad">
+            <strong>Viaggio dei Sogni!</strong> Prenota ora e ottieni un'offerta esclusiva. <span class="ad-link" onclick="alert('Navigando a: www.esempio.com')">Clicca qui per maggiori dettagli!</span>
+        </div>
+    </div>
+
+    <!-- Prima schermata -->
+    <div class="container" id="primaSchermata">
+        <h1>Dammi i Numeri Fortunati</h1>
+        <div class="settings">
+            <label>Intervallo dei Numeri</label>
+            <div>
+                <label for="min">Da</label>
+                <input type="number" id="min" min="1" max="90" value="1">
+                <label for="max">A</label>
+                <input type="number" id="max" min="1" max="90" value="90">
+            </div>
+        </div>
+
+        <div class="settings">
+            <label>Quanti numeri fortunati vuoi?</label>
+            <select id="quantita">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+        </div>
+
+        <div class="settings">
+            <div id="escludi-container" style="display: none;">
+                <input type="text" id="escludi" placeholder="Esempio: 1, 5, 10">
+            </div>
+            <div id="include-container" style="display: none;">
+                <input type="text" id="include" placeholder="Esempio: 2, 4, 6">
+            </div>
+            <span class="pallino" id="pallino-escludi" onclick="toggleEscludi()"></span>
+            <span class="pallino" id="pallino-include" onclick="toggleInclude()"></span>
+        </div>
+
+        <button class="button" onclick="vaiAllaSecondaSchermata()">Dammi i Numeri Fortunati</button>
+    </div>
+
+    <div class="container hidden" id="secondaSchermata" style="display:none;">
+        <h1>Numeri Generati</h1>
+        <div id="numeriGenerati" class="numeri-container"></div>
+        <button class="button" onclick="tornaAllaPrimaSchermata()">Torna Indietro</button>
+    </div>
+
+    <script>
+        function generaNumeri(quantita, min, max, esclusi, inclusi) {
+            const numeriGenerati = [];
+            const esclusiSet = new Set(esclusi);
+            const inclusiSet = new Set(inclusi);
+
+            while (numeriGenerati.length < quantita) {
+                let numero;
+
+                // Se ci sono numeri inclusi, li genera prima
+                if (inclusiSet.size > 0) {
+                    numero = Array.from(inclusiSet)[Math.floor(Math.random() * inclusiSet.size)];
+                    inclusiSet.delete(numero);
+                } else {
+                    numero = Math.floor(Math.random() * (max - min + 1)) + min;
+                }
+
+                // Controlla se il numero è escluso
+                if (!esclusiSet.has(numero)) {
+                    numeriGenerati.push(numero);
+                }
+            }
+            return numeriGenerati;
+        }
+
+        function vaiAllaSecondaSchermata() {
+            const min = parseInt(document.getElementById("min").value);
+            const max = parseInt(document.getElementById("max").value);
+            const quantita = parseInt(document.getElementById("quantita").value);
+            const esclusiInput = document.getElementById("escludi").value;
+            const esclusi = esclusiInput ? esclusiInput.split(',').map(Number).filter(num => num >= min && num <= max) : [];
+            const inclusiInput = document.getElementById("include").value;
+            const inclusi = inclusiInput ? inclusiInput.split(',').map(Number).filter(num => num >= min && num <= max) : [];
+
+            const numeriGenerati = generaNumeri(quantita, min, max, esclusi, inclusi);
+            mostraNumeriGenerati(numeriGenerati);
+        }
+
+        function mostraNumeriGenerati(numeri) {
+            document.getElementById("numeriGenerati").innerHTML = '';
+            numeri.forEach(num => {
+                const numeroDiv = document.createElement("div");
+                numeroDiv.classList.add("numero");
+                numeroDiv.textContent = num;
+                document.getElementById("numeriGenerati").appendChild(numeroDiv);
+            });
+            document.getElementById("primaSchermata").style.display = "none";
+            document.getElementById("secondaSchermata").style.display = "block";
+        }
+
+        function tornaAllaPrimaSchermata() {
+            document.getElementById("primaSchermata").style.display = "block";
+            document.getElementById("secondaSchermata").style.display = "none";
+        }
+
+        function toggleEscludi() {
+            const container = document.getElementById("escludi-container");
+            const pallino = document.getElementById("pallino-escludi");
+
+            if (container.style.display === "none") {
+                container.style.display = "block";
+            } else {
+                container.style.display = "none";
+                pallino.style.display = "none";  // Nasconde il pallino al secondo clic
+            }
+            document.getElementById("numeriGenerati").innerHTML = '';
+        }
+
+        function toggleInclude() {
+            const container = document.getElementById("include-container");
+            const pallino = document.getElementById("pallino-include");
+
+            if (container.style.display === "none") {
+                container.style.display = "block";
+            } else {
+                container.style.display = "none";
+                pallino.style.display = "none";  // Nasconde il pallino al secondo clic
+            }
+            document.getElementById("numeriGenerati").innerHTML = '';
+        }
+
+        function accettaCookies() {
+            document.getElementById("cookiePopup").style.display = "none";
+        }
+
+        function rifiutaCookies() {
+            alert("Cookies non essenziali rifiutati.");
+            document.getElementById("cookiePopup").style.display = "none";
+        }
+
+        window.onload = function() {
+            document.getElementById("cookiePopup").style.display = "flex";
+        };
+    </script>
+</body>
+</html>
+
+
+
